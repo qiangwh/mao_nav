@@ -46,7 +46,7 @@ export const mockData = {
           "name": "blog",
           "url": "https://node.linglingqi.ddns-ip.net/",
           "description": "",
-          "icon": ""
+          "icon": "https://xiaow.de5.net/test/sung-jinwoo-dope-3840x2160-20241.jpg"
         }
       ]
     },
