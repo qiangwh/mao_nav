@@ -40,6 +40,13 @@ export const mockData = {
           "url": "https://curlconverter.com/",
           "description": "curl命令转换工具",
           "icon": "/sitelogo/curlconverter.com.ico"
+        },
+        {
+          "id": "site-1770958668837",
+          "name": "blog",
+          "url": "https://node.linglingqi.ddns-ip.net/",
+          "description": "",
+          "icon": ""
         }
       ]
     },
@@ -446,6 +453,5 @@ export const mockData = {
     }
   ],
   "title": "导航栏",
-  "search": "google",
-  "_fileSha": "24c86a25c1c1b77b94eddc0f63a0268e7d72a870"
+  "search": "google"
 }
