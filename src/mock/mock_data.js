@@ -197,13 +197,6 @@ export const mockData = {
           "url": "https://www.oracle.com/java/technologies/downloads/",
           "description": "Oracle官方Java下载",
           "icon": "/sitelogo/www.oracle.com.ico"
-        },
-        {
-          "id": "site-1772765664564",
-          "name": "各种收藏",
-          "url": "https://www.spaceship.com/zh/",
-          "description": "域名购买",
-          "icon": ""
         }
       ]
     },
@@ -463,7 +456,29 @@ export const mockData = {
       "icon": "📁",
       "name": "各种收藏",
       "order": 0,
-      "sites": []
+      "sites": [
+        {
+          "id": "site-1772765664564",
+          "name": "域名",
+          "url": "https://www.spaceship.com/zh/",
+          "description": "域名购买",
+          "icon": ""
+        },
+        {
+          "id": "site-1772765846451",
+          "name": "文件暂存",
+          "url": "https://www.quwenjian.cn/",
+          "description": "存临时文件分享",
+          "icon": ""
+        },
+        {
+          "id": "site-1772765910601",
+          "name": "数据库使用",
+          "url": "https://tidbcloud.com/clusters/10345196797148933109/overview?orgId=1372813089209308975&projectId=1372813089454627015",
+          "description": "免费使用mysql空间1g",
+          "icon": ""
+        }
+      ]
     }
   ],
   "title": "导航栏",
