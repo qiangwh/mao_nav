@@ -197,6 +197,13 @@ export const mockData = {
           "url": "https://www.oracle.com/java/technologies/downloads/",
           "description": "Oracle官方Java下载",
           "icon": "/sitelogo/www.oracle.com.ico"
+        },
+        {
+          "id": "site-1772765664564",
+          "name": "各种收藏",
+          "url": "https://www.spaceship.com/zh/",
+          "description": "域名购买",
+          "icon": ""
         }
       ]
     },
