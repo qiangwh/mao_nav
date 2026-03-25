@@ -32,8 +32,8 @@
     <aside class="sidebar">
       <!-- Logo区域 -->
       <div class="logo-section">
-        <img src="/logo.png" alt="logo" class="logo" />
-        <h1 class="site-title">{{ title || '猫猫导航' }}</h1>
+        <div class="logo-badge" aria-hidden="true"><img src="/favicon.svg" alt="" class="logo-image" /></div>
+        <h1 class="site-title">{{ title || '导航栏' }}</h1>
       </div>
 
       <!-- 分类导航 -->
@@ -52,21 +52,6 @@
         </ul>
       </nav>
 
-      <!-- 左侧边栏底部信息 -->
-      <div class="sidebar-footer">
-        <a
-          href="https://github.com/maodeyu180/mao_nav"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="github-link"
-          title="查看源代码"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          <span>开源不易，Star一下吧！⭐</span>
-        </a>
-      </div>
     </aside>
 
     <!-- 右侧主内容区 -->
@@ -186,7 +171,7 @@
           <footer class="page-footer" hidden="true">
             <div class="footer-content">
               <div class="footer-info">
-                <h3>{{ title || '猫猫导航' }}</h3>
+                <h3>{{ title || '导航栏' }}</h3>
                 <p>一个简洁、美观的导航网站，收录优质网站资源</p>
               </div>
 
@@ -206,7 +191,7 @@
             </div>
 
             <div class="footer-bottom">
-              <p>&copy; {{ new Date().getFullYear() }} 猫猫导航 - 由 <a href="https://github.com/maodeyu180" target="_blank" rel="noopener noreferrer">maodeyu180</a> 用 ❤️ 制作</p>
+              <p>&copy; {{ new Date().getFullYear() }} 导航栏 - 由 <a href="https://github.com/maodeyu180" target="_blank" rel="noopener noreferrer">maodeyu180</a> 用 ❤️ 制作</p>
               <p class="footer-tech">基于 Vue.js 构建 | <a href="https://github.com/maodeyu180/mao_nav" target="_blank" rel="noopener noreferrer">查看源代码</a></p>
             </div>
           </footer>
@@ -432,6 +417,289 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* ===== 视觉重塑：纸感+夜航风格 ===== */
+.nav-home,
+.admin-dashboard {
+  position: relative;
+  isolation: isolate;
+}
+
+.nav-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(198, 138, 52, 0.14), transparent 24%),
+    radial-gradient(circle at 90% 0%, rgba(76, 115, 217, 0.16), transparent 20%),
+    radial-gradient(circle at 80% 90%, rgba(198, 138, 52, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+  opacity: 0.95;
+}
+
+.nav-home::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.45), transparent 78%);
+  opacity: 0.35;
+}
+
+.sidebar,
+.search-header,
+.site-card,
+.mobile-menu,
+.page-footer,
+.lock-box,
+.login-box,
+.tab-content,
+.admin-tabs,
+.loading-content {
+  backdrop-filter: blur(18px);
+}
+
+.sidebar {
+  background: linear-gradient(180deg, rgba(12, 21, 37, 0.92), rgba(21, 32, 53, 0.88));
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logo-section {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+}
+
+.site-title,
+.category-title,
+.footer-info h3,
+.header-content h1,
+.login-box h1,
+.lock-box h1 {
+  font-family: 'Noto Serif SC', serif;
+  letter-spacing: 0.02em;
+}
+
+.site-title {
+  font-size: 22px;
+}
+
+.search-header {
+  background: var(--color-surface-strong);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.search-container {
+  max-width: 760px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-strong);
+}
+
+.search-engine-selector {
+  background: rgba(76, 115, 217, 0.06);
+}
+
+.search-input {
+  background: transparent;
+}
+
+.theme-toggle-btn,
+.mobile-menu-btn,
+.close-btn,
+.retry-btn,
+.unlock-btn,
+.login-btn,
+.logout-btn,
+.skip-loading-btn,
+.footer-link,
+.github-link,
+.tab-btn {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-toggle-btn:hover,
+.mobile-menu-btn:hover,
+.close-btn:hover,
+.retry-btn:hover,
+.unlock-btn:hover:not(:disabled),
+.login-btn:hover:not(:disabled),
+.logout-btn:hover,
+.skip-loading-btn:hover,
+.footer-link:hover,
+.github-link:hover,
+.tab-btn:hover {
+  transform: translateY(-1px);
+}
+
+.content-area {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(76, 115, 217, 0.4) transparent;
+}
+
+.content-area::-webkit-scrollbar,
+.category-nav::-webkit-scrollbar,
+.mobile-category-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content-area::-webkit-scrollbar-thumb,
+.category-nav::-webkit-scrollbar-thumb,
+.mobile-category-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(76, 115, 217, 0.5), rgba(198, 138, 52, 0.45));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.categories-container {
+  max-width: 1280px;
+}
+
+.category-section {
+  padding: 14px 16px 4px;
+  border: 1px solid transparent;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,255,255,0.14));
+  box-shadow: var(--shadow-soft);
+}
+
+.category-section + .category-section {
+  margin-top: 28px;
+}
+
+.category-title {
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sites-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.site-card {
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 30px rgba(16, 25, 47, 0.06);
+}
+
+.site-card:hover {
+  border-color: rgba(76, 115, 217, 0.28);
+  box-shadow: 0 18px 38px rgba(16, 25, 47, 0.14);
+}
+
+.site-card::before {
+  background: linear-gradient(135deg, rgba(76, 115, 217, 0.08), rgba(198, 138, 52, 0.08));
+}
+
+.site-icon {
+  background: linear-gradient(180deg, rgba(76, 115, 217, 0.08), rgba(198, 138, 52, 0.06));
+}
+
+.site-name {
+  font-weight: 700;
+}
+
+.site-description {
+  color: var(--color-text-muted);
+}
+
+.page-footer {
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.footer-content,
+.footer-bottom {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.footer-link {
+  box-shadow: 0 8px 20px rgba(16, 25, 47, 0.06);
+}
+
+.dark .nav-home::before {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(198, 138, 52, 0.12), transparent 24%),
+    radial-gradient(circle at 90% 0%, rgba(76, 115, 217, 0.16), transparent 20%),
+    radial-gradient(circle at 80% 90%, rgba(198, 138, 52, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+}
+
+.dark .category-section,
+.dark .site-card,
+.dark .search-header,
+.dark .page-footer,
+.dark .lock-box,
+.dark .login-box,
+.dark .tab-content,
+.dark .admin-tabs,
+.dark .loading-content {
+  background: rgba(8, 15, 28, 0.72);
+  border-color: var(--color-border);
+}
+
+.dark .sidebar {
+  background: linear-gradient(180deg, rgba(5, 10, 20, 0.96), rgba(10, 17, 31, 0.92));
+}
+
+.dark .search-engine-selector {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dark .category-title,
+.dark .footer-info h3,
+.dark .header-content h1,
+.dark .login-box h1,
+.dark .lock-box h1,
+.dark .site-name {
+  color: var(--color-heading);
+}
+
+.dark .site-description,
+.dark .footer-info p,
+.dark .footer-bottom p,
+.dark .user-info,
+.dark .nav-title {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .nav-home::after {
+    background-size: 26px 26px;
+    opacity: 0.2;
+  }
+
+  .category-section {
+    border-radius: 22px;
+    padding: 10px 10px 2px;
+  }
+
+  .sites-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .site-card {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .site-name {
+    font-size: 15px;
+  }
+
+  .site-description {
+    font-size: 12px;
+  }
+}
 /* 锁定界面样式 */
 .lock-container {
   position: fixed;
@@ -550,22 +818,37 @@ onUnmounted(() => {
   height: 100vh;
   overflow: hidden;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  gap: 14px;
+  padding: 14px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.logo {
+.logo-badge {
   width: 55px;
   height: 55px;
-  border-radius: 12px;
-  margin-right: 15px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(140, 170, 255, 0.35));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  font-size: 26px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.logo-image {
+  width: 36px;
+  height: 36px;
+  display: block;
+  object-fit: contain;
 }
 
 .site-title {
@@ -577,7 +860,8 @@ onUnmounted(() => {
 
 .category-nav {
   padding: 20px 0;
-  height: calc(100vh - 180px); /* 为底部留出空间 */
+  flex: 1;
+  height: auto;
   overflow-y: auto;
 }
 
@@ -620,39 +904,6 @@ onUnmounted(() => {
 .category-name {
   font-size: 15px;
   font-weight: 500;
-}
-
-/* 左侧边栏底部 */
-.sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
-}
-
-.github-link {
-  display: flex;
-  align-items: center;
-  color: #bdc3c7;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  font-size: 14px;
-}
-
-.github-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  transform: translateY(-1px);
-}
-
-.github-link svg {
-  margin-right: 8px;
-  transition: transform 0.3s ease;
-}
-
-.github-link:hover svg {
-  transform: scale(1.1);
 }
 
 /* 右侧主内容区样式 */

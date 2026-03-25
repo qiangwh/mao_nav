@@ -140,7 +140,7 @@ const saving = ref(false)
 // 管理界面状态
 const activeTab = ref('categories')
 const categories = ref([])
-const navTitle = ref('猫猫导航') // 保存网站标题
+const navTitle = ref('导航栏') // 保存网站标题
 const selectedCategoryId = ref('') // 用于站点管理的选中分类
 
 // 紧急兜底：如果5秒后loading还是true，强制重置
@@ -259,13 +259,13 @@ const loadCategories = async () => {
     // 直接加载本地数据，避免GitHub API调用
     const { mockData } = await import('../mock/mock_data.js')
     categories.value = mockData.categories || []
-    navTitle.value = mockData.title || '猫猫导航'
+    navTitle.value = mockData.title || '导航栏'
     console.log('✅ 本地数据加载成功，分类数量:', categories.value.length)
   } catch (error) {
     console.error('❌ 本地数据加载失败:', error)
     // 最后兜底：使用空数组
     categories.value = []
-    navTitle.value = '猫猫导航'
+    navTitle.value = '导航栏'
   } finally {
     // 确保loading状态被重置
     loading.value = false
@@ -313,7 +313,7 @@ const skipLoading = async () => {
   try {
     const { mockData } = await import('../mock/mock_data.js')
     categories.value = mockData.categories || []
-    navTitle.value = mockData.title || '猫猫导航'
+    navTitle.value = mockData.title || '导航栏'
     console.log('跳过加载后，使用本地数据:', categories.value.length)
   } catch (error) {
     console.error('跳过加载时，本地数据加载失败:', error)
@@ -327,7 +327,7 @@ const skipLoading = async () => {
         sites: []
       }
     ]
-    navTitle.value = '猫猫导航'
+    navTitle.value = '导航栏'
   }
 
   showDialog(
@@ -421,17 +421,17 @@ onMounted(() => {
       // 使用同步方式加载本地数据
       import('../mock/mock_data.js').then(({ mockData }) => {
         categories.value = mockData.categories || []
-        navTitle.value = mockData.title || '猫猫导航'
+        navTitle.value = mockData.title || '导航栏'
         console.log('🔍 本地数据加载成功，分类数量:', categories.value.length)
       }).catch(error => {
         console.error('🔍 本地数据加载失败:', error)
         categories.value = []
-        navTitle.value = '猫猫导航'
+        navTitle.value = '导航栏'
       })
     } catch (error) {
       console.error('🔍 数据加载异常:', error)
       categories.value = []
-      navTitle.value = '猫猫导航'
+        navTitle.value = '导航栏'
     }
   }
 
@@ -440,6 +440,204 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.admin-container {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(76, 115, 217, 0.16), transparent 24%),
+    radial-gradient(circle at top right, rgba(198, 138, 52, 0.12), transparent 22%),
+    linear-gradient(180deg, #09101d 0%, #0e1627 48%, #0b1220 100%);
+}
+
+.login-container,
+.admin-main {
+  position: relative;
+}
+
+.login-container::before,
+.admin-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.22;
+}
+
+.login-box,
+.admin-header,
+.admin-tabs,
+.tab-content,
+.loading-content {
+  backdrop-filter: blur(18px);
+  background: rgba(14, 22, 37, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+}
+
+.login-box h1,
+.header-content h1 {
+  font-family: 'Noto Serif SC', serif;
+  letter-spacing: 0.02em;
+}
+
+.login-box {
+  border-radius: 20px;
+  max-width: 440px;
+}
+
+.login-box h1 {
+  color: #f3f7ff;
+}
+
+.form-group label {
+  color: #c7d1e4;
+}
+
+.form-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #eef4ff;
+}
+
+.form-input::placeholder {
+  color: #8d9ab2;
+}
+
+.login-btn,
+.logout-btn,
+.skip-loading-btn,
+.emergency-btn,
+.debug-btn,
+.tab-btn {
+  border-radius: 999px;
+}
+
+.login-btn,
+.tab-btn.active {
+  background: linear-gradient(135deg, #4c73d9 0%, #7a5cff 100%);
+  box-shadow: 0 12px 28px rgba(76, 115, 217, 0.28);
+}
+
+.login-btn:hover:not(:disabled),
+.tab-btn.active:hover {
+  box-shadow: 0 14px 30px rgba(76, 115, 217, 0.34);
+}
+
+.login-btn:disabled {
+  opacity: 0.55;
+}
+
+.login-box .error-message {
+  background: rgba(220, 68, 68, 0.14);
+  color: #ffb4b4;
+  border: 1px solid rgba(220, 68, 68, 0.3);
+}
+
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(9, 16, 29, 0.72);
+}
+
+.header-content h1 {
+  color: #f4f8ff;
+}
+
+.user-info {
+  color: #9daac2;
+}
+
+.logout-btn,
+.emergency-btn,
+.debug-btn {
+  color: white;
+  border: 1px solid transparent;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #e24d62 0%, #b83248 100%);
+}
+
+.emergency-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #d64545 100%);
+}
+
+.debug-btn {
+  background: linear-gradient(135deg, #f7a12b 0%, #d9821f 100%);
+}
+
+.admin-tabs {
+  gap: 8px;
+  padding: 8px;
+  border-radius: 18px;
+}
+
+.tab-btn {
+  color: #aeb8cb;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+}
+
+.tab-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.06);
+  color: #eef4ff;
+}
+
+.tab-content {
+  border-radius: 22px;
+  padding: 28px;
+}
+
+.loading-overlay {
+  background: rgba(6, 10, 17, 0.68);
+}
+
+.loading-content {
+  border-radius: 22px;
+  color: #ecf2ff;
+}
+
+.loading-content p {
+  color: #c0cbe0;
+}
+
+.skip-loading-btn {
+  background: linear-gradient(135deg, #f7a12b 0%, #d9821f 100%);
+  color: white;
+}
+
+.skip-loading-btn:hover {
+  box-shadow: 0 12px 28px rgba(217, 130, 31, 0.28);
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .admin-main {
+    padding: 18px 14px 28px;
+  }
+
+  .tab-content {
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+}
+
 .admin-container {
   min-height: 100vh;
   background: #2c3e50;

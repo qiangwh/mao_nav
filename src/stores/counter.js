@@ -1,6 +1,26 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
+
+const safeStorageGet = (key) => {
+  if (!isBrowser) return null
+  try {
+    return window.localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+const safeStorageSet = (key, value) => {
+  if (!isBrowser) return
+  try {
+    window.localStorage.setItem(key, value)
+  } catch {
+    // 忽略存储失败，避免阻塞页面渲染
+  }
+}
+
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
   const doubleCount = computed(() => count.value * 2)
@@ -16,31 +36,34 @@ export const useThemeStore = defineStore('theme', () => {
   const isDarkMode = ref(false)
 
   // 从 localStorage 读取保存的主题
-  const savedTheme = localStorage.getItem('theme')
+  const savedTheme = safeStorageGet('theme')
   if (savedTheme) {
     isDarkMode.value = savedTheme === 'dark'
   } else {
     // 检测系统主题偏好
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const prefersDark = isBrowser
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : false
     isDarkMode.value = prefersDark
   }
 
   // 切换主题
   function toggleTheme() {
     isDarkMode.value = !isDarkMode.value
-    localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
+    safeStorageSet('theme', isDarkMode.value ? 'dark' : 'light')
     updateDocumentTheme()
   }
 
   // 设置主题
   function setTheme(theme) {
     isDarkMode.value = theme === 'dark'
-    localStorage.setItem('theme', theme)
+    safeStorageSet('theme', theme)
     updateDocumentTheme()
   }
 
   // 更新文档主题类
   function updateDocumentTheme() {
+    if (!isBrowser) return
     if (isDarkMode.value) {
       document.documentElement.classList.add('dark')
     } else {
