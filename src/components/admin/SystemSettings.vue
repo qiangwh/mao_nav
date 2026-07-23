@@ -154,7 +154,7 @@
         <div class="config-item">
           <label>GitHub 仓库所有者 (VITE_GITHUB_OWNER):</label>
           <div class="config-value">
-            <span class="value-display">{{ envConfig.githubOwner || '默认: maodeyu180' }}</span>
+            <span class="value-display">{{ envConfig.githubOwner || '默认: qiangwh' }}</span>
           </div>
         </div>
         <div class="config-item">
